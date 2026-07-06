@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+
+# Spark / demo artifacts
+data/
+spark-warehouse/
+metastore_db/
+derby.log
+*.crc
+
+# OS
+.DS_Store
