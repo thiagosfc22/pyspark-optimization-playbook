@@ -1,5 +1,7 @@
 # PySpark Optimization Playbook
 
+[🇧🇷 Português](README.pt-BR.md) · **🇬🇧 English**
+
 A slow Spark job almost never means "we need a bigger cluster." It means the job
 is doing work it doesn't have to — usually a shuffle it could have skipped, a
 partition it could have pruned, or a full history it reprocesses every night.
@@ -25,6 +27,11 @@ you've ruled out steps 1–4.
 | 5 | **Avoid Python UDFs** | A Python UDF serializes every row across the JVM↔Python boundary and blocks optimization. Use native functions; when you can't, `pandas_udf` + Arrow ships batches instead of rows. | [`05_avoid_udfs.py`](demos/05_avoid_udfs.py) |
 | 6 | **Cache only with reuse** | Spark recomputes a DataFrame on every action. Cache when a frame is reused across ≥2 actions — never out of habit; that just burns memory. | [`06_cache.py`](demos/06_cache.py) |
 | 7 | **Go incremental** | The biggest saver and the least questioned waste: process only what changed, not the whole history. On Delta, a keyed `MERGE INTO` makes it idempotent too. | [`07_incremental.py`](demos/07_incremental.py) |
+
+<p align="center">
+  <img src="docs/optimization-checklist.png" width="480" alt="The seven steps, in order: measure first, kill the shuffle, hunt the skew, read less data, avoid Python UDFs, cache only with reuse, go incremental.">
+  <br><em>The checklist, in order — the order is the method: measure before you tune, and rule out cheap wins before expensive ones.</em>
+</p>
 
 ## How to read a demo
 
